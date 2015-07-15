@@ -1,8 +1,8 @@
 #PropL Experimental
 
-After my work on [**PropL**](https://github.com/k0pernicus/PropL), my first supervisor proposed to me to create a software which analyse and compute the weight for each edge in a graph (Barabasi for example), based on some possible paths in the graph.
+After my work on [**PropL**](https://github.com/k0pernicus/PropL), my first supervisor proposed to me to create a software which analyse and compute the weight for each edge in a directed graph (Barabasi for example), based on some possible paths in this one.
 
-This work has been made in *Python3.4* and *Rust* (experimental).
+This work has been made in *Python3.4* and *Rust* (experimental implementation).
 
 *   [How to use it?](#how_to_use_it)
 *   [Contact](#contact)
