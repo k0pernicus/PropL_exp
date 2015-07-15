@@ -103,39 +103,55 @@ class Graph(object):
         Abstract: Primitive to compute the weights matrix
         """
 
-        init_nodes = self.computeInitNodes()
+        if debug_mod:
+            print("Edges are {}".format(self.graph.edges()))
 
-        #for each init node...
-        for init_node in init_nodes:
+        #for each init node in all init nodes...
+        for init_node in self.init_nodes:
 
-            #create a stock to stock target nodes
+            if debug_mod:
+                print("Init node : {}".format(init_node))
+
+            #we create an array which contains visited nodes
+            visited_nodes = [init_node]
+
+            #we create an array which contains nodes to visit
             nodes_stack = []
 
-            #for each of those target...
+            #iteration on target nodes, from init node
             for target_node in self.graph.edge[init_node]:
 
-                if target_node != 'visited' and self.graph.node[target_node] != "target":
+                if (self.graph.node[target_node] != "target"):
 
                     nodes_stack.append((target_node, self.weights_matrix[init_node][target_node]))
 
             while not isEmpty(nodes_stack):
 
-                source_node, probability_of_source_edge = nodes_stack.pop()
+                source_node, probability_to_propagate_between_source_target = nodes_stack.pop()
 
-                probability_to_propagate = 0
+                if debug_mod:
+                    print("Target node : {}".format(source_node))
+
+                probability_to_propagate_from_source_node = 0
 
                 for target_node in self.graph.edge[source_node]:
 
-                    if target_node != "visited" and target_node != source_node:
+                    if debug_mod:
+                        print("\t...source node {}".format(target_node))
 
-                        self.computeSpecificWeight(probability_of_source_edge, source_node, target_node)
+                    if source_node != target_node:
 
-                        probability_to_propagate += self.weights_matrix[source_node][target_node]
+                        self.computeSpecificWeight(probability_to_propagate_between_source_target, source_node, target_node)
 
-                        if self.graph.node[target_node] != "target":
+                        probability_to_propagate_from_source_node += self.weights_matrix[source_node][target_node]
+
+                        if (not target_node in nodes_stack) and (not target_node in visited_nodes):
+
+                            if debug_mod:
+                                print("\t\t... {} added".format(target_node))
 
                             nodes_stack.append((target_node, self.weights_matrix[source_node][target_node]))
 
-                probability_to_stay = (1 - probability_to_propagate)
+                self.weights_matrix[init_node][source_node] = probability_to_propagate_from_source_node
 
-                self.weights_matrix[source_node][source_node] = probability_to_stay
+                self.weights_matrix[init_node][init_node] = 1 - probability_to_propagate_from_source_node
