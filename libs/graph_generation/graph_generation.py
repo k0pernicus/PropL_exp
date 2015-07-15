@@ -16,6 +16,7 @@ class Graph(object):
         self.id = id
         self.nb_nodes = nb_nodes
         self.nb_ex = nb_ex
+        self.init_nodes = []
         self.weights_matrix = {}
         self.graph = self.generate()
         if debug_mod :
@@ -26,6 +27,7 @@ class Graph(object):
 
     def run(self):
         self.putLabelsAndInitWeightsMatrix()
+        self.init_nodes = self.computeInitNodes()
 
     def generate(self):
         """
