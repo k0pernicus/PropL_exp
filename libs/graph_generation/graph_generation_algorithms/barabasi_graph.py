@@ -23,6 +23,15 @@ class BarabasiGraph(Graph):
     def generate(self):
         """
             Method to generate the graph based on the Barabasi-Albert model.
-            Return a Graph object, based on Barabasi-Albert model.
+            Return a Graph object, based on Barabasi-Albert model (directed graph).
         """
-        return nx.barabasi_albert_graph(self.nb_nodes, self.degree)
+        #Creation of a directed graph
+        g = nx.DiGraph()
+        #Creation of a graph from Barabasi-Albert model
+        b = nx.barabasi_albert_graph(self.nb_nodes, self.degree)
+        #Add all nodes and edges from b to g (because g canno't be directed by NetworkX)
+        g.add_nodes_from(b.nodes())
+        g.add_edges_from(b.edges())
+
+        #Finally, return the directed graph
+        return g
