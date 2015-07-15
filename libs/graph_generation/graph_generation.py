@@ -153,6 +153,4 @@ class Graph(object):
 
                             nodes_stack.append((target_node, self.weights_matrix[source_node][target_node]))
 
-                self.weights_matrix[init_node][source_node] = probability_to_propagate_from_source_node
-
-                self.weights_matrix[init_node][init_node] = 1 - probability_to_propagate_from_source_node
+                self.weights_matrix[source_node][source_node] = (1 - probability_to_propagate_from_source_node)
