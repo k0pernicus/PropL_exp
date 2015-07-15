@@ -77,7 +77,10 @@ class Graph(object):
             if edge[0] != edge[1]:
                 init_nodes[edge[1]] = -1
 
-        return [x for x in init_nodes if x != 0 and len(self.graph.edge[x]) != 0]
+        if self.debug_mod:
+            print("Init nodes are : {}".format(init_nodes))
+
+        return [x for x in init_nodes if x != -1 and len(self.graph.edge[x]) != 0]
 
     def computeSpecificWeight(self, probability_of_source_edge, source_node, target_node):
         """
