@@ -89,7 +89,8 @@ class Graph(object):
 
         is_target_node_visited = self.weights_matrix[target_node]['visited']
 
-        print("target {0} visited -> {1}".format(target_node, is_target_node_visited))
+        if debug_mod:
+            print("target {0} visited -> {1}".format(target_node, is_target_node_visited))
 
         if is_target_node_visited:
             self.weights_matrix[source_node][target_node] = (self.weights_matrix[source_node][target_node] + probability_of_source_edge) / 2
