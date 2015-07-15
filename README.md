@@ -4,6 +4,8 @@ After my work on [**PropL**](https://github.com/k0pernicus/PropL), my first supe
 
 This work has been made in *Python3.4* and *Rust* (experimental implementation).
 
+The Musco model is available [here](https://hal.inria.fr/hal-01120913).
+
 *   [How to use it?](#how_to_use_it)
 *   [Contact](#contact)
 
