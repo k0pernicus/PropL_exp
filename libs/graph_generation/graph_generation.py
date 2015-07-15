@@ -1,3 +1,5 @@
+from libs.utils.utils import isEmpty
+
 import random
 
 import networkx as nx
