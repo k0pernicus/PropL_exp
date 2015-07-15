@@ -23,7 +23,7 @@ def generate_some_examples(graph):
 class GraphPropagation(object):
     """
     Abstract: Class to test propagations of bugs in graphs.
-    Graphs are build with an algorithm of Vincenzo Musco.
+    Graphs are build with the algorithm of Vincenzo Musco.
     """
 
     def __init__(self, id, nb_nodes, nb_ex):
