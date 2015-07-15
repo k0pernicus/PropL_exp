@@ -19,7 +19,7 @@ class Graph(object):
         self.init_nodes = []
         self.weights_matrix = {}
         self.graph = self.generate()
-        if debug_mod :
+        if self.debug_mod :
             print("Graph {} created!".format(self.id))
 
     def __del__(self):
@@ -90,7 +90,7 @@ class Graph(object):
 
         is_target_node_visited = self.weights_matrix[target_node]['visited']
 
-        if debug_mod:
+        if self.debug_mod:
             print("target {0} visited -> {1}".format(target_node, is_target_node_visited))
 
         if is_target_node_visited:
@@ -104,13 +104,13 @@ class Graph(object):
         Abstract: Primitive to compute the weights matrix
         """
 
-        if debug_mod:
+        if self.debug_mod:
             print("Edges are {}".format(self.graph.edges()))
 
         #for each init node in all init nodes...
         for init_node in self.init_nodes:
 
-            if debug_mod:
+            if self.debug_mod:
                 print("Init node : {}".format(init_node))
 
             #we create an array which contains visited nodes
@@ -130,14 +130,14 @@ class Graph(object):
 
                 source_node, probability_to_propagate_between_source_target = nodes_stack.pop()
 
-                if debug_mod:
+                if self.debug_mod:
                     print("Target node : {}".format(source_node))
 
                 probability_to_propagate_from_source_node = 0
 
                 for target_node in self.graph.edge[source_node]:
 
-                    if debug_mod:
+                    if self.debug_mod:
                         print("\t...source node {}".format(target_node))
 
                     if source_node != target_node:
@@ -148,7 +148,7 @@ class Graph(object):
 
                         if (not target_node in nodes_stack) and (not target_node in visited_nodes):
 
-                            if debug_mod:
+                            if self.debug_mod:
                                 print("\t\t... {} added".format(target_node))
 
                             nodes_stack.append((target_node, self.weights_matrix[source_node][target_node]))
