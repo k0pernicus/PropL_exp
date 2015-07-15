@@ -6,7 +6,9 @@ import networkx as nx
 
 class Graph(object):
     """
-    Abstract: Class to create a graph
+    Object to represent a graph.
+    A graph is a representation of a network of nodes, join by edges.
+    This structure contains some methods to analyse accurately this one and to do machine learning on it.
     """
 
     def __init__(self, id, nb_nodes, nb_ex, debug_mod):
