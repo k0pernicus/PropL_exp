@@ -75,7 +75,7 @@ class Graph(object):
         for edge in self.graph.edges():
             #avoid recursive functions
             if edge[0] != edge[1]:
-                init_nodes[edge[1]] = 0
+                init_nodes[edge[1]] = -1
 
         return [x for x in init_nodes if x != 0 and len(self.graph.edge[x]) != 0]
 
