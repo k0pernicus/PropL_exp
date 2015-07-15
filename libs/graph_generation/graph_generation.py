@@ -28,6 +28,7 @@ class Graph(object):
     def run(self):
         self.putLabelsAndInitWeightsMatrix()
         self.init_nodes = self.computeInitNodes()
+        self.computeWeightsMatrix()
 
     def generate(self):
         """
