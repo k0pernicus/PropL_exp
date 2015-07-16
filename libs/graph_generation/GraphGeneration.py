@@ -15,10 +15,11 @@ class Graph(object):
         id : An id to represent the graph
         nb_nodes : An integer to represent the number of nodes in the model
         nb_ex : An integer to represent the number of examples to generate (learning and training)
+        method : A string which represents the method used to generate probabilities ("unform", "random")
         debug_mod : A boolean to know if the graph is on debugging mod or not
     """
 
-    def __init__(self, id, nb_nodes, nb_ex, debug_mod):
+    def __init__(self, id, nb_nodes, nb_ex, method, debug_mod = True):
         self.debug_mod = debug_mod
         self.id = id
         self.nb_nodes = nb_nodes
@@ -29,6 +30,7 @@ class Graph(object):
         self.final_nodes_for_source_node = {}
         self.get_sources_for_target = {}
         self.graph = self.generate()
+        self.method = method
         if self.debug_mod :
             print("Graph {} created!".format(self.id))
 
