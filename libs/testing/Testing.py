@@ -1,3 +1,0 @@
-class TestingSet(object) :
-
-    pass

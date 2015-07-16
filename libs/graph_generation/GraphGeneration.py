@@ -1,7 +1,7 @@
 from libs.utils.utils import isEmpty
 
-from libs.learning.Learning import LearningSet
-from libs.testing.Testing import TestingSet
+from libs.learning_and_testing_lib.learning.Learning import LearningSet
+from libs.learning_and_testing_lib.testing.Testing import TestingSet
 
 import random
 
@@ -33,7 +33,7 @@ class Graph(object):
             print("Graph {} created!".format(self.id))
 
     def __del__(self):
-        print("Graph {} has been deleted.".format(self.id))
+        print("Graph {0} has been deleted.".format(self.id))
 
     def run(self):
         """
@@ -56,6 +56,8 @@ class Graph(object):
             These examples belongs to the (learning + test) data set.
             This method returns two objects : a Learning object (contains data set to learn) and a Testing object (contains data set to test)
         """
+
+        pass
 
     def putLabelsAndInitWeightsMatrix(self):
         """
