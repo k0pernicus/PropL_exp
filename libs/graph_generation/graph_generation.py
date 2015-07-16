@@ -37,8 +37,8 @@ class Graph(object):
             Default method to put labels like 'source' (a 'source' node is a node which have a target), or 'final' (a 'final' node is a node which not have a target).
             This method computes also 'init' nodes (an 'init' node is a node which is not a target).
         """
+        self.computeInitNodesAndSourcesForATarget()
         self.putLabelsAndInitWeightsMatrix()
-        self.computeInitNodes()
         self.computeFinalNodesForSourceNodes()
 
     def generate(self):
@@ -85,7 +85,7 @@ class Graph(object):
                     for target_node in self.graph.edge[source_node]:
                         self.weights_matrix[source_node][target_node] = weight_to_add
 
-    def computeInitNodes(self):
+    def computeInitNodesAndSourcesForATarget(self):
         """
             Method to compute 'init' nodes (an 'init' node is a node which is not a target), in the graph.
         """
