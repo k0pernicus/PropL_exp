@@ -100,6 +100,42 @@ class Graph(object):
                     for target_node in self.graph.edge[source_node]:
                         self.weights_matrix[source_node][target_node] = weight_to_add
 
+    def putLabelsAndInitWeightsMatrixRANDOM(self):
+        """
+            Method to put labels like 'source' (a 'source' node is a node which have a target), or 'final' (a 'final' node is a node which not have a target), on each node in the graph.
+            Random approach : The probability of a target is random. The sum of his weight + neighbors's weight = 1.
+        """
+
+        for source_node in self.graph.nodes():
+
+            self.weights_matrix[source_node] = {}
+
+            #add label "target" to each node which is a target of an edge AND which is not already a source
+            if len(self.graph.edge[source_node]) == 0:
+                self.graph.node[source_node] = "final"
+                self.final_nodes.append(source_node)
+
+            else:
+                #add label "source" to each node which is a source of an edge
+                self.graph.node[source_node] = "source"
+
+                nb_of_target_nodes = len(self.graph.edge[source_node])
+
+                #if it's not recursive, we add the source_node as a target of himself
+                if not source_node in self.graph.edge[source_node]:
+
+                    total_weight = 1
+
+                    #for each target_node, put the probability to go in the next node to 1/nb_of_target_nodes
+                    for target_node in self.graph.edge[source_node]:
+                        if target_node != source_node:
+                            weight_to_add = round(random.uniform(0,total_weight), 3)
+                            self.weights_matrix[source_node][target_node] = weight_to_add
+                            total_weight -= weight_to_add
+                            total_weight = round(total_weight, 3)
+
+                    self.weights_matrix[source_node][source_node] = total_weight
+
     def computeInitNodesAndSourcesForATarget(self):
         """
             Method to compute 'init' nodes (an 'init' node is a node which is not a target), in the graph.
