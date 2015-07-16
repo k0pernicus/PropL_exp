@@ -1,0 +1,3 @@
+class LearningSet(object):
+
+    pass
