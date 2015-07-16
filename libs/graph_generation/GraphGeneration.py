@@ -13,6 +13,7 @@ class Graph(object):
     """
         Object to represent a graph.
         A graph is a representation of a network of nodes, join by edges.
+        We suppose our graphs are directed and acyclics.
         This structure contains some methods to analyse accurately this one and to do machine learning on it.
         id : An id to represent the graph
         nb_nodes : An integer to represent the number of nodes in the model
