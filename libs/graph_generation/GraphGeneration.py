@@ -7,6 +7,8 @@ import random
 
 import networkx as nx
 
+from networkx import is_directed_acyclic_graph
+
 class Graph(object):
     """
         Object to represent a graph.
@@ -54,7 +56,8 @@ class Graph(object):
             Default method to generate the wished graph.
         """
 
-        pass
+        while (not is_directed_acyclic_graph(self.graph)):
+            self.generate()
 
     def generateExamples(self):
         """
