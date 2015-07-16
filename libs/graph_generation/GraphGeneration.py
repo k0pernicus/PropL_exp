@@ -43,13 +43,17 @@ class Graph(object):
             This method computes also 'init' nodes (an 'init' node is a node which is not a target).
         """
         self.computeInitNodesAndSourcesForATarget()
-        self.putLabelsAndInitWeightsMatrix()
+        if self.method == "uniform":
+            self.putLabelsAndInitWeightsMatrixUNIFORM()
+        if self.method == "random":
+            self.putLabelsAndInitWeightsMatrixRANDOM()
         self.computeFinalNodesForSourceNodes()
 
     def generate(self):
         """
             Default method to generate the wished graph.
         """
+
         pass
 
     def generateExamples(self):
