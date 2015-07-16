@@ -17,7 +17,10 @@ class Graph(object):
         self.nb_nodes = nb_nodes
         self.nb_ex = nb_ex
         self.init_nodes = []
+        self.final_nodes = []
         self.weights_matrix = {}
+        self.final_nodes_for_source_node = {}
+        self.get_sources_for_target = {}
         self.graph = self.generate()
         if self.debug_mod :
             print("Graph {} created!".format(self.id))
@@ -27,6 +30,8 @@ class Graph(object):
 
     def run(self):
         self.putLabelsAndInitWeightsMatrix()
+        self.computeInitNodes()
+        self.computeFinalNodesForSourceNodes()
 
     def generate(self):
         """
@@ -45,7 +50,8 @@ class Graph(object):
 
             #add label "target" to each node which is a target of an edge AND which is not already a source
             if len(self.graph.edge[source_node]) == 0:
-                self.graph.node[source_node] = "target"
+                self.graph.node[source_node] = "final"
+                self.final_nodes.append(source_node)
 
             else:
                 #add label "source" to each node which is a source of an edge
@@ -53,11 +59,23 @@ class Graph(object):
 
                 nb_of_target_nodes = len(self.graph.edge[source_node])
 
-                self.weights_matrix[source_node][source_node] = 0
+                #if it's not recursive, we add the source_node as a target of himself
+                if not source_node in self.graph.edge[source_node]:
 
-                #for each target_node, put the probability to go in the next node to 1/nb_of_target_nodes
-                for target_node in self.graph.edge[source_node]:
-                    self.weights_matrix[source_node][target_node] = 1/nb_of_target_nodes
+                    weight_to_add = round(1/ (nb_of_target_nodes + 1), 3)
+
+                    #for each target_node, put the probability to go in the next node to 1/nb_of_target_nodes
+                    for target_node in self.graph.edge[source_node]:
+                        self.weights_matrix[source_node][target_node] = weight_to_add
+
+                    self.weights_matrix[source_node][source_node] = weight_to_add
+
+                #else, everything is ok...
+                else:
+                    weight_to_add = round(1 / nb_of_target_nodes, 3)
+
+                    for target_node in self.graph.edge[source_node]:
+                        self.weights_matrix[source_node][target_node] = weight_to_add
 
     def computeInitNodes(self):
         """
