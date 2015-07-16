@@ -114,6 +114,9 @@ class Graph(object):
     def computeSpecificWeight(self, source_node, target_node, local_probability_to_come):
         """
             Method to compute a specific weight between two nodes ('source_node' and 'target_node'), with the probability to come in this state ('local_probability_to_come')
+            source_node : The source node of the edge to compute weight
+            target_node : The target node of the edge to compute weight
+            local_probability_to_come : The local probability to the event to come
         """
 
         self.weights_matrix[source_node][target_node] = round(self.weights_matrix[source_node][target_node] * local_probability_to_come,3)
