@@ -9,15 +9,16 @@ class MuscoGraph(Graph):
         Object representing a graph, made with the Musco model.
     """
 
-    def __init__(self, id, nb_nodes, nb_ex, debug_mod = False):
+    def __init__(self, id, nb_nodes, nb_ex, method = "uniform", debug_mod = False):
         """
             We call super() to initialize a basic graph with initial properties.
             id : An id to represent the graph
             nb_nodes : An integer to represent the number of nodes in the model
             nb_ex : An integer to represent the number of examples to generate (learning and training)
+            method : A string which represents the method used to generate probabilities ("unform", "random")
             debug_mod : A boolean to know if the graph is on debugging mod or not
         """
-        super().__init__(id, nb_nodes, nb_ex, debug_mod)
+        super().__init__(id, nb_nodes, nb_ex, method, debug_mod)
 
     def generate(self):
         """
