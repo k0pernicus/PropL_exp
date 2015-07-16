@@ -59,11 +59,12 @@ class Graph(object):
             This method returns two objects : a Learning object (contains data set to learn) and a Testing object (contains data set to test)
         """
 
-        pass
 
-    def putLabelsAndInitWeightsMatrix(self):
+
+    def putLabelsAndInitWeightsMatrixUNIFORM(self):
         """
             Method to put labels like 'source' (a 'source' node is a node which have a target), or 'final' (a 'final' node is a node which not have a target), on each node in the graph.
+            Uniform approach : each target node have the same probability of his neighbors.
         """
 
         for source_node in self.graph.nodes():
