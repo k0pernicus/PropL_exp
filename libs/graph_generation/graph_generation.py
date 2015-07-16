@@ -6,9 +6,13 @@ import networkx as nx
 
 class Graph(object):
     """
-    Object to represent a graph.
-    A graph is a representation of a network of nodes, join by edges.
-    This structure contains some methods to analyse accurately this one and to do machine learning on it.
+        Object to represent a graph.
+        A graph is a representation of a network of nodes, join by edges.
+        This structure contains some methods to analyse accurately this one and to do machine learning on it.
+        id : An id to represent the graph
+        nb_nodes : An integer to represent the number of nodes in the model
+        nb_ex : An integer to represent the number of examples to generate (learning and training)
+        debug_mod : A boolean to know if the graph is on debugging mod or not
     """
 
     def __init__(self, id, nb_nodes, nb_ex, debug_mod):
@@ -29,19 +33,23 @@ class Graph(object):
         print("Graph {} has been deleted.".format(self.id))
 
     def run(self):
+        """
+            Default method to put labels like 'source' (a 'source' node is a node which have a target), or 'final' (a 'final' node is a node which not have a target).
+            This method computes also 'init' nodes (an 'init' node is a node which is not a target).
+        """
         self.putLabelsAndInitWeightsMatrix()
         self.computeInitNodes()
         self.computeFinalNodesForSourceNodes()
 
     def generate(self):
         """
-        Abstract: Function to generate a graph like Vincenzo Musco works
+            Default method to generate the wished graph.
         """
         pass
 
     def putLabelsAndInitWeightsMatrix(self):
         """
-        Abstract: Primitive to label a node, in the self.graph parameter
+            Method to put labels like 'source' (a 'source' node is a node which have a target), or 'final' (a 'final' node is a node which not have a target), on each node in the graph.
         """
 
         for source_node in self.graph.nodes():
@@ -79,7 +87,7 @@ class Graph(object):
 
     def computeInitNodes(self):
         """
-        Abstract: Function to return init nodes in the graph
+            Method to compute 'init' nodes (an 'init' node is a node which is not a target), in the graph.
         """
 
         init_nodes = []
