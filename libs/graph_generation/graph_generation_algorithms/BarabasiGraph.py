@@ -2,6 +2,8 @@ from libs.graph_generation.GraphGeneration import Graph
 
 import networkx as nx
 
+from networkx import is_directed_acyclic_graph
+
 class BarabasiGraph(Graph):
     """
         Object representing a graph, made with the Barabasi-Albert model.
@@ -28,11 +30,20 @@ class BarabasiGraph(Graph):
         """
         #Creation of a directed graph
         g = nx.DiGraph()
-        #Creation of a graph from Barabasi-Albert model
-        b = nx.barabasi_albert_graph(self.nb_nodes, self.degree)
-        #Add all nodes and edges from b to g (because g canno't be directed by NetworkX)
-        g.add_nodes_from(b.nodes())
-        g.add_edges_from(b.edges())
+
+        #we return the graph (new_graph_vincenzo) if he's not acyclic and directed
+        while True:
+            #Creation of a graph from Barabasi-Albert model
+            b = nx.barabasi_albert_graph(self.nb_nodes, self.degree)
+            #Add all nodes and edges from b to g (because g canno't be directed by NetworkX)
+            g.add_nodes_from(b.nodes())
+            g.add_edges_from(b.edges())
+
+            if is_directed_acyclic_graph(g):
+                break
+            else:
+                #new digraph to continue...
+                g = nx.DiGraph()
 
         #Finally, return the directed graph
         return g
