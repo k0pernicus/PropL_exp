@@ -10,7 +10,7 @@ class DefaultStructure(object):
     def __init__(self, id, id_graph, tests, debug_mod):
         self.id = id
         self.id_graph = id_graph
-        self.tests = []
+        self.tests = tests
         self.debug_mod = debug_mod
 
     def __del__(self):
