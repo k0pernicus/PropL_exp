@@ -116,7 +116,7 @@ class Graph(object):
             learning_and_testing_set.append((source_node, impacted_final_nodes))
 
         #chunk the list
-        chunked_list = chunksList(learning_and_testing_set, self.nb_split_ex)
+        chunked_list = chunksList(learning_and_testing_set, 2 * round(len(learning_and_testing_set) / self.nb_split_ex))
 
         #pop a random sublist - this sublist become the testing set.
         set_for_tests = chunked_list.pop(chunked_list.index(random.choice(chunked_list)))
