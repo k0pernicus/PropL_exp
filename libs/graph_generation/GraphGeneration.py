@@ -124,8 +124,8 @@ class Graph(object):
         #At this point, chunked_list is the list of learning tests
 
         #Learning and Testing objects
-        learning_set = LearningSet("learning_set", self.id, [test for tests in chunked_list for test in tests], self.debug_mod)
-        testing_set = TestingSet("testing set", self.id, set_for_tests, self.debug_mod)
+        learning_set = LearningSet("learning_set", self, [test for tests in chunked_list for test in tests], self.debug_mod)
+        testing_set = TestingSet("testing set", self, set_for_tests, self.debug_mod)
 
         return learning_set, testing_set
 
