@@ -21,11 +21,12 @@ class Graph(object):
         debug_mod : A boolean to know if the graph is on debugging mod or not
     """
 
-    def __init__(self, id, nb_nodes, nb_ex, method, debug_mod = True):
+    def __init__(self, id, nb_nodes, nb_ex, nb_split_ex, method, debug_mod = True):
         self.debug_mod = debug_mod
         self.id = id
         self.nb_nodes = nb_nodes
         self.nb_ex = nb_ex
+        self.nb_split_ex = nb_split_ex
         self.init_nodes = []
         self.final_nodes = []
         self.weights_matrix = {}
