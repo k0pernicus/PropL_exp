@@ -39,7 +39,7 @@ def test_each_edge_approach(graph, weights_matrix, tests):
                     target_edge = edge[1]
 
                     try:
-                        if random_prop > weights_matrix[source_edge][target_edge]:
+                        if random_prop > (weights_matrix[source_edge][target_edge] / weights_matrix[source_edge][source_edge]):
                             find = False
                     except Exception as e:
                         find = False
