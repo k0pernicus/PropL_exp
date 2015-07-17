@@ -1,6 +1,6 @@
 from libs.learning_and_testing_lib.DefaultStructure import DefaultStructure
 
-from libs.learning_and_testing_lib.learning.learning_algorithms.dichotomic_approach import dichotomic_approach
+from libs.learning_and_testing_lib.learning.learning_algorithms.add_visits_approach import add_visits_approach
 # from libs.learning_and_testing_lib.learning.learning_algorithms.min_and_max_approach import min_and_max_approach
 # from libs.learning_and_testing_lib.learning.learning_algorithms.tag_each_usefull_edge_approach import tag_each_usefull_edge_approach
 # from libs.learning_and_testing_lib.learning.learning_algorithms.update_each_path_approach import update_each_path_approach
@@ -13,7 +13,7 @@ learning_dir = "learning/"
 learning_algo_dir = "learning_algorithms/"
 
 learning_algorithm_functions = {
-    'dichotomic_approach' : dichotomic_approach,
+    'add_visits_approach' : add_visits_approach,
     #'min_and_max_approach' : min_and_max_approach,
     #'tag_each_usefull_edge_approach' : tag_each_usefull_edge_approach,
     #'update_each_path_approach' : update_each_path_approach
@@ -67,4 +67,4 @@ class LearningSet(DefaultStructure):
         """
         f = learning_algorithm_functions[self.learning_algorithm]
 
-        return f(self.graph, self.batch_nbr)
+        return f(self.graph, self.batch_nbr, self.tests)
