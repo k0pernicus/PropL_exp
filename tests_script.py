@@ -16,3 +16,6 @@ if __name__ == "__main__":
     print("{0}\n".format(weights_matrix))
 
     testing_set.run()
+
+    print("Weights matrix: {}".format(testing_set.makeSomeTesting(weights_matrix)))
+    print("Test matrix: {}".format(testing_set.tests))
