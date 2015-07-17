@@ -37,7 +37,7 @@ def test_each_path_approach(graph, weights_matrix, tests):
                     target_edge = edge[1]
 
                     try:
-                        prob_path = prob_path * weights_matrix[source_edge][target_edge]
+                        prob_path = prob_path * (weights_matrix[source_edge][target_edge] / weights_matrix[source_edge][source_edge])
                     except Exception as e:
                         prob_path = 0
 
