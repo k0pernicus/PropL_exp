@@ -2,7 +2,7 @@ import networkx as nx
 
 def getExistingPathsFrom(path):
     """
-    Abstract: Function to transform the list of nodes (all_paths) to a list of tuples (source, target)
+    Function to transform the list of nodes (all_paths) to a list of tuples (source, target)
     Ex: [node1, node2, node3, node4, ...] -> [(node1, node2),(node2, node3), (node3, node4), (node4,...)]
     path: A path in the usegraph
     """
@@ -12,6 +12,7 @@ def getExistingPathsFrom(path):
 def add_visits_approach(graph, nb_batch, tests):
     """
     Algorithm to compute the weight of each edge.
+    Returns the weights matrix.
     The algorithm is really simple : in the tests list, we pop a source node and the list of his impacted nodes.
     For those, we return the list of available paths between the source node and impacted nodes, and add +1 to their edge (including the edge between the source node and itself).
     graph : A Graph object
