@@ -53,3 +53,11 @@ class TestingSet(DefaultStructure):
             sys.exit()
 
         return testing_algorithms_available[user_choice].split(".py")[0]
+
+    def makeSomeTesting(self, weights_matrix):
+        """
+            Method to return results with the weight matrix, given as parameter
+        """
+        f = testing_algorithm_functions[self.testing_algorithm]
+
+        return f(self.graph, weights_matrix, self.tests)
