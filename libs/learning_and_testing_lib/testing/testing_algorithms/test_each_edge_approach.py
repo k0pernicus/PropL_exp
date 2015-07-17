@@ -1,3 +1,9 @@
+from libs.utils.utils import getExistingPathsFrom
+
+import networkx as nx
+
+import random
+
 def test_each_edge_approach(graph, weights_matrix, tests):
     """
         Function to test, on testing examples, the weights matrix.
@@ -7,4 +13,40 @@ def test_each_edge_approach(graph, weights_matrix, tests):
         tests : Tests made by a learning algorithm (see Learning object)
     """
 
-    pass
+    results = {}
+
+    for test in tests:
+
+        source_node = test[0]
+
+        results[source_node] = []
+
+        for final_node in graph.final_nodes_for_source_node[source_node]:
+
+            prob_path = 1
+
+            paths_between_source_node_and_final_nodes = nx.all_simple_paths(graph.graph, source_node, final_node)
+
+            for path in paths_between_source_node_and_final_nodes:
+
+                find = True
+
+                for edge in getExistingPathsFrom(path):
+
+                    random_prop = random.uniform(0,1)
+
+                    source_edge = edge[0]
+                    target_edge = edge[1]
+
+                    try:
+                        if random_prop > weights_matrix[source_edge][target_edge]:
+                            find = False
+                    except Exception as e:
+                        find = False
+
+                if find:
+                    results[source_node].append(final_node)
+
+        results[source_node] = list(set(results[source_node]))
+
+    return results
