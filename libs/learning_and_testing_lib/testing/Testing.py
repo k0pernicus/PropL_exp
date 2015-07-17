@@ -10,8 +10,8 @@ testing_dir = "testing/"
 testing_algo_dir = "testing_algorithms/"
 
 testing_algorithm_functions = {
-    'test_each_edge' : test_each_edge_approach,
-    'test_each_path' : test_each_path_approach
+    'test_each_edge_approach' : test_each_edge_approach,
+    'test_each_path_approach' : test_each_path_approach
 }
 
 not_usefull_files = [".DS_Store", "__pycache__", "__pycache__/", "__init__.py"]
