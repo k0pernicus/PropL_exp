@@ -17,6 +17,13 @@ testing_algorithm_functions = {
 not_usefull_files = [".DS_Store", "__pycache__", "__pycache__/", "__init__.py"]
 
 class TestingSet(DefaultStructure):
+    """
+        Object which contains the data set to test learned probabilities (by the learning algorithm).
+        id : The id of this object
+        graph : The graph which the data set from
+        tests : Data set (list of couple source_node : targets_node) to test
+        debug_mod : A boolean to know if the graph is on debugging mod or not
+    """
 
     def __init__(self, id, graph, tests, debug_mod):
         super().__init__(id, graph, tests, debug_mod)
