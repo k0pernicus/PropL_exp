@@ -1,4 +1,4 @@
-def dichotomic_learning_algorithm(graph, nb_batch):
+def dichotomic_approach(graph, nb_batch):
     """
     Algorithm to compute the weight of each edge, with a dichotomic approach.
     This algorithm is detailed in the scientific paper (see README.md).
