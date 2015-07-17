@@ -58,6 +58,34 @@ class Graph(object):
 
         pass
 
+    def generatePropagationFrom(self, source_node):
+        """
+            Method to generate a bug propagation from 'source_node'
+        """
+
+        impacted_nodes = []
+
+        impacted_nodes_stack = []
+
+        impacted_nodes_stack.append(source_node)
+
+        #The algorithm is simple.
+        #1. We create a stack which contains all visited nodes.
+        #2. For each target of the visited node, we check if a random number is <= at the value of the edge between the visited node and the current target.
+        #3. Then (if yes), we add the target_node object to the list of impacted nodes, else : Game Over (for the current target).
+        #4. Return the array which contains visited nodes.
+        while not isEmpty(impacted_nodes_stack):
+
+            local_source_node = impacted_nodes_stack.pop()
+
+            for target_node in self.graph.edge[local_source_node]:
+                random_gen = random.uniform(0, 1)
+                if random_gen <= self.weights_matrix[local_source_node][target_node]:
+                    impacted_nodes.append(target_node)
+                    impacted_nodes_stack.append(target_node)
+
+        return impacted_nodes
+
     def generateExamples(self):
         """
             Default method to generate some usefull examples.
