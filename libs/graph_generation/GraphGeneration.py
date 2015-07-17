@@ -1,4 +1,5 @@
 from libs.utils.utils import isEmpty
+from libs.utils.utils import chunksList
 
 from libs.learning_and_testing_lib.learning.Learning import LearningSet
 from libs.learning_and_testing_lib.testing.Testing import TestingSet
