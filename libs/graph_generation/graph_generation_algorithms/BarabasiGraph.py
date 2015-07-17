@@ -9,7 +9,7 @@ class BarabasiGraph(Graph):
         Object representing a graph, made with the Barabasi-Albert model.
     """
 
-    def __init__(self, id, nb_nodes, degree, nb_ex, method="uniform", debug_mod = False):
+    def __init__(self, id, nb_nodes, degree, nb_ex, nb_split_ex = 10, method="uniform", debug_mod = False):
         """
             We call super() to initialize a basic graph with initial properties.
             id : An id to represent the graph
@@ -21,7 +21,7 @@ class BarabasiGraph(Graph):
             Note : We add the degree field because the generation of the graph, with the Barabasi-Albert model, needs this one - it's not important for other graphs models (like the Musco model).
         """
         self.degree = degree
-        super().__init__(id, nb_nodes, nb_ex, method, debug_mod)
+        super().__init__(id, nb_nodes, nb_ex, nb_split_ex, method, debug_mod)
 
     def generate(self):
         """
