@@ -1,69 +1,18 @@
-import sys
-import time
-
-from libs.use_graph_lib import UseGraph
-
-from libs.learning_lib import dichotomicOnlineOptimization
-from libs.learning_lib import minAndMaxOnlineOptimization
-from libs.learning_lib import updateAllEdgesOnlineOptimization
-from libs.learning_lib import constraintsBatchOptimization
-
-from libs.testing_lib import doSomeTests
-
-from libs.basic_stat_lib import getSomeStats
-
-from threading import Thread
-
-def run_algorithm(ug, visualization = False):
-    """
-    Method to run the usegraph
-    """
-
-    ug.run()
-
-    if ug.id == "dicho_online_opt":
-        dichotomicOnlineOptimization(ug)
-
-    if ug.id == "min_max_online_opt":
-        minAndMaxOnlineOptimization(ug)
-
-    if ug.id == "update_all_edges_online_opt":
-        updateAllEdgesOnlineOptimization(ug)
-
-    # if ug.id == "constraints_batch_opt":
-    #     constraintsBatchOptimization(ug)
-
-    if visualization:
-        ug.visualize()
-    getSomeStats(ug)
-    doSomeTests(ug)
+from libs.graph_generation.graph_generation_algorithms.MuscoGraph import MuscoGraph
+from libs.graph_generation.graph_generation_algorithms.BarabasiGraph import BarabasiGraph
 
 if __name__ == "__main__":
 
-    debugging = False
+    musco_graph = MuscoGraph("musco", 25, 37)
+    musco_graph.run()
 
-    visualization = False
+    learning_set, testing_set = musco_graph.generateExamples()
+    learning_set.run()
 
-    repo_to_test = sys.argv[1]
+    print("Set : {}\n".format(learning_set.tests))
 
-    if "--debug" in sys.argv:
-        debugging = True
+    weights_matrix = learning_set.makeSomeLearning()
 
-    if "--visu" in sys.argv:
-        visualization = True
+    print("{0}\n".format(weights_matrix))
 
-    all_ug = []
-
-    ug_dicho_online_opt = UseGraph("dicho_online_opt", repo_to_test, debug_mode=debugging)
-    ug_min_max_online_opt = UseGraph("min_max_online_opt", repo_to_test, debug_mode=debugging)
-    ug_update_all_edges_online_opt = UseGraph("update_all_edges_online_opt", repo_to_test, debug_mode=debugging)
-    # ug_constraints_batch_opt = UseGraph("constraints_batch_opt", repo_to_test, debug_mode=debugging)
-
-    all_ug.append(ug_dicho_online_opt)
-    all_ug.append(ug_min_max_online_opt)
-    all_ug.append(ug_update_all_edges_online_opt)
-    # all_ug.append(ug_constraints_batch_opt)
-
-    for ug in all_ug:
-        Thread(target=run_algorithm, args=(ug,visualization)).start()
-        time.sleep(2)
+    testing_set.run()
