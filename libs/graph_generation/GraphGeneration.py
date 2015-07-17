@@ -90,10 +90,43 @@ class Graph(object):
         """
             Default method to generate some usefull examples.
             These examples belongs to the (learning + test) data set.
-            This method returns two objects : a Learning object (contains data set to learn) and a Testing object (contains data set to test)
+            This method returns a couple of objects : a Learning object (contains data set to learn) and a Testing object (contains data set to test)
         """
 
+        #Data set for learning and testing ex
+        learning_and_testing_set = []
 
+        #Arbitrary value
+        source_node = 0
+
+        for i in range(0, self.nb_ex):
+            #Take a random node (!= target)
+            while True:
+                source_node = random.choice(self.graph.nodes())
+                if self.graph.node[source_node] != "final":
+                    break
+                continue
+            #Get the list of impacted nodes
+            impacted_nodes = self.generatePropagationFrom(source_node)
+            th_final_nodes = self.final_nodes_for_source_node[source_node]
+            #Get the list of impacted final nodes
+            impacted_final_nodes = [x for x in impacted_nodes if x in th_final_nodes]
+            #Add in the global structure the couple source_node, impacted_final_nodes
+            learning_and_testing_set.append((source_node, impacted_final_nodes))
+
+        #chunk the list
+        chunked_list = chunksList(learning_and_testing_set, self.nb_split_ex)
+
+        #pop a random sublist - this sublist become the testing set.
+        set_for_tests = chunked_list.pop(chunked_list.index(random.choice(chunked_list)))
+
+        #At this point, chunked_list is the list of learning tests
+
+        #Learning and Testing objects
+        learning_set = LearningSet("learning_set", self.id, [test for tests in chunked_list for test in tests], self.debug_mod)
+        testing_set = TestingSet("testing set", self.id, set_for_tests, self.debug_mod)
+
+        return learning_set, testing_set
 
     def putLabelsAndInitWeightsMatrixUNIFORM(self):
         """
