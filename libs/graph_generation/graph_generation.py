@@ -51,9 +51,18 @@ class Graph(object):
 
                 self.weights_matrix[source_node][source_node] = 0
 
+                #number of the node, to compute probabilities
+                node_nbr = 1
+
+                probability_to_propagate_for_each_node = 0
+
                 #for each target_node, put the probability to go in the next node to 1/nb_of_target_nodes
                 for target_node in self.graph.edge[source_node]:
-                    self.weights_matrix[source_node][target_node] = 1/nb_of_target_nodes
+                    self_probability_to_propagate = random.uniform(0, 1)
+                    self.weights_matrix[source_node][target_node] = (1 - probability_to_propagate_for_each_node) * self_probability_to_propagate
+                    probability_to_propagate_for_each_node += self_probability_to_propagate
+
+                self.weights_matrix[source_node][source_node] = (1 - probability_to_propagate_for_each_node)
 
     def computeInitNodes(self):
         """
