@@ -61,6 +61,22 @@ class TestingSet(DefaultStructure):
 
         return testing_algorithms_available[user_choice].split(".py")[0]
 
+    def to_dic(self):
+
+        testing_set_m_dic = {}
+
+        for test_couple in self.tests:
+            node_mutated = test_couple[0]
+
+            if not node_mutated in testing_set_m_dic:
+                testing_set_m_dic[node_mutated] = []
+
+            for target_impacted in test_couple[1]:
+                if not target_impacted in testing_set_m_dic[node_mutated]:
+                    testing_set_m_dic[node_mutated].append(target_impacted)
+
+        return testing_set_m_dic
+
     def makeSomeTesting(self, weights_matrix):
         """
             Method to return results with the weight matrix, given as parameter
