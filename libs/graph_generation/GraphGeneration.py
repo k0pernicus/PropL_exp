@@ -229,3 +229,36 @@ class Graph(object):
             print("Init nodes are : {}".format(init_nodes))
 
         self.init_nodes = [x for x in init_nodes if x != -1 and len(self.graph.edge[x]) != 0]
+
+    def computeFinalNodesForSourceNodes(self):
+        """
+            Method to compute 'final' nodes accessible for each node.
+        """
+
+        for final_node in self.final_nodes:
+
+            visited_nodes = []
+
+            source_nodes_stack = []
+
+            for source_node in self.get_sources_for_target[final_node]:
+
+                source_nodes_stack.append(source_node)
+
+            while not isEmpty(source_nodes_stack):
+
+                local_source_node = source_nodes_stack.pop()
+
+                visited_nodes.append(local_source_node)
+
+                if not local_source_node in self.final_nodes_for_source_node:
+                    self.final_nodes_for_source_node[local_source_node] = []
+
+                if not final_node in self.final_nodes_for_source_node[local_source_node]:
+                    self.final_nodes_for_source_node[local_source_node].append(final_node)
+
+                if not local_source_node in self.init_nodes:
+                    for next_source_node in self.get_sources_for_target[local_source_node]:
+
+                        if (not next_source_node in visited_nodes) and (not next_source_node in source_nodes_stack):
+                            source_nodes_stack.append(next_source_node)
