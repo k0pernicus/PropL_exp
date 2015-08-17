@@ -189,20 +189,20 @@ class Graph(object):
 
                 nb_of_target_nodes = len(self.graph.edge[source_node])
 
-                #if it's not recursive, we add the source_node as a target of himself
-                if not source_node in self.graph.edge[source_node]:
+                self.weights_matrix[source_node][source_node] = 0
 
-                    total_weight = 1
+                #number of the node, to compute probabilities
+                node_nbr = 1
 
-                    #for each target_node, put the probability to go in the next node to 1/nb_of_target_nodes
-                    for target_node in self.graph.edge[source_node]:
-                        if target_node != source_node:
-                            weight_to_add = round(random.uniform(0,total_weight), 3)
-                            self.weights_matrix[source_node][target_node] = weight_to_add
-                            total_weight -= weight_to_add
-                            total_weight = round(total_weight, 3)
+                probability_to_propagate_for_each_node = 0
 
-                    self.weights_matrix[source_node][source_node] = total_weight
+                #for each target_node, put the probability to go in the next node to 1/nb_of_target_nodes
+                for target_node in self.graph.edge[source_node]:
+                    self_probability_to_propagate = random.uniform(0, 1)
+                    self.weights_matrix[source_node][target_node] = (1 - probability_to_propagate_for_each_node) * self_probability_to_propagate
+                    probability_to_propagate_for_each_node += self_probability_to_propagate
+
+                self.weights_matrix[source_node][source_node] = (1 - probability_to_propagate_for_each_node)
 
     def computeInitNodesAndSourcesForATarget(self):
         """
@@ -229,46 +229,3 @@ class Graph(object):
             print("Init nodes are : {}".format(init_nodes))
 
         self.init_nodes = [x for x in init_nodes if x != -1 and len(self.graph.edge[x]) != 0]
-
-    def computeSpecificWeight(self, source_node, target_node, local_probability_to_come):
-        """
-            Method to compute a specific weight between two nodes ('source_node' and 'target_node'), with the probability to come in this state ('local_probability_to_come')
-            source_node : The source node of the edge to compute weight
-            target_node : The target node of the edge to compute weight
-            local_probability_to_come : The local probability to the event to come
-        """
-
-        self.weights_matrix[source_node][target_node] = round(self.weights_matrix[source_node][target_node] * local_probability_to_come,3)
-
-    def computeFinalNodesForSourceNodes(self):
-        """
-            Method to compute 'final' nodes accessible for each node.
-        """
-
-        for final_node in self.final_nodes:
-
-            visited_nodes = []
-
-            source_nodes_stack = []
-
-            for source_node in self.get_sources_for_target[final_node]:
-
-                source_nodes_stack.append(source_node)
-
-            while not isEmpty(source_nodes_stack):
-
-                local_source_node = source_nodes_stack.pop()
-
-                visited_nodes.append(local_source_node)
-
-                if not local_source_node in self.final_nodes_for_source_node:
-                    self.final_nodes_for_source_node[local_source_node] = []
-
-                if not final_node in self.final_nodes_for_source_node[local_source_node]:
-                    self.final_nodes_for_source_node[local_source_node].append(final_node)
-
-                if not local_source_node in self.init_nodes:
-                    for next_source_node in self.get_sources_for_target[local_source_node]:
-
-                        if (not next_source_node in visited_nodes) and (not next_source_node in source_nodes_stack):
-                            source_nodes_stack.append(next_source_node)
