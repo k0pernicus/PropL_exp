@@ -22,8 +22,16 @@ def musco_script():
 
     testing_set_m.run()
 
-    print("Weights matrix: {}".format(testing_set_m.makeSomeTesting(weights_matrix_m)))
+    weights_matrix_m_computed = testing_set_m.makeSomeTesting(weights_matrix_m)
+
+    print("Weights matrix: {}".format(weights_matrix_m_computed))
     print("Test matrix: {}".format(testing_set_m.tests))
+
+    good_prediction, error_prediction = testing_set_m.compareResultsWith(weights_matrix_m_computed)
+
+    print("TOTAL:")
+    print("\t{0} good predictions".format(good_prediction))
+    print("\t{0} error(s)\n".format(error_prediction))
 
 def barabasi_script():
     """
@@ -44,8 +52,16 @@ def barabasi_script():
 
     testing_set_b.run()
 
-    print("Weights matrix: {}".format(testing_set_b.makeSomeTesting(weights_matrix_b)))
+    weights_matrix_b_computed = testing_set_b.makeSomeTesting(weights_matrix_b)
+
+    print("Weights matrix: {}".format(weights_matrix_b_computed))
     print("Test matrix: {}".format(testing_set_b.tests))
+
+    good_prediction, error_prediction = testing_set_b.compareResultsWith(weights_matrix_b_computed)
+
+    print("TOTAL:")
+    print("\t{0} good predictions".format(good_prediction))
+    print("\t{0} error(s)\n".format(error_prediction))
 
 if __name__ == "__main__":
 
