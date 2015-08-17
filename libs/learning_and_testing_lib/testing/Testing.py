@@ -84,3 +84,34 @@ class TestingSet(DefaultStructure):
         f = testing_algorithm_functions[self.testing_algorithm]
 
         return f(self.graph, weights_matrix, self.tests)
+
+    def compareResultsWith(self, weights_matrix_computed):
+        error_prediction = 0
+
+        good_prediction = 0
+
+        testing_set_m_dic = self.to_dic()
+
+        print("testing set {0}".format(testing_set_m_dic))
+
+        for node_mutated in testing_set_m_dic:
+            if (len(testing_set_m_dic[node_mutated]) == 0) and (len(weights_matrix_computed[node_mutated]) == 0):
+                print("OK for {0}".format(node_mutated))
+                good_prediction += 1
+            elif (len(testing_set_m_dic[node_mutated]) == 0) and (len(weights_matrix_computed[node_mutated]) != 0):
+                error_prediction += len(weights_matrix_computed[node_mutated])
+            elif (len(weights_matrix_computed[node_mutated]) == 0):
+                error_prediction += len(testing_set_m_dic[node_mutated])
+            else:
+                nb_impacted_nodes = 0
+                for target_impacted in testing_set_m_dic[node_mutated]:
+                    if target_impacted in weights_matrix_computed[node_mutated]:
+                        good_prediction += 1
+                        nb_impacted_nodes += 1
+                    else:
+                        error_prediction += 1
+                if len(weights_matrix_computed[node_mutated]) != 0:
+                    error_prediction += len(weights_matrix_computed[node_mutated]) - nb_impacted_nodes
+            print("{0} -> {1} errors / {2} good".format(node_mutated, error_prediction, good_prediction))
+
+        return good_prediction, error_prediction
