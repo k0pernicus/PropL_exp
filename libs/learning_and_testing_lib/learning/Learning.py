@@ -55,7 +55,7 @@ class LearningSet(DefaultStructure):
         print("List of learning algorithms:")
 
         for learning_algorithm in learning_algorithms_available:
-            if not learning_algorithm in not_usefull_files:
+            if (not learning_algorithm in not_usefull_files) and (learning_algorithm.split(".py")[0] in learning_algorithm_functions):
                 print("\t{} : {}".format(learning_algorithms_available.index(learning_algorithm), learning_algorithm.split("_approach")[0]))
 
         print("\n")
