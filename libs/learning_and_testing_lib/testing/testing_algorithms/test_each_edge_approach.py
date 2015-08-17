@@ -39,7 +39,10 @@ def test_each_edge_approach(graph, weights_matrix, tests):
                     target_edge = edge[1]
 
                     try:
-                        if random_prop > (weights_matrix[source_edge][target_edge] / weights_matrix[source_edge][source_edge]):
+                        proportion_of_the_target_for_the_source = (weights_matrix[source_edge][target_edge] / weights_matrix[source_edge][source_edge])
+                        if (proportion_of_the_target_for_the_source < 0) or (proportion_of_the_target_for_the_source > 1):
+                            print("ERROR : proportion_of_the_target_for_the_source is not ok ({0} for source {1} and target {2})".format(proportion_of_the_target_for_the_source, weights_matrix[source_edge][source_edge], weights_matrix[source_edge][target_edge]))
+                        if random_prop > proportion_of_the_target_for_the_source:
                             find = False
                     except Exception as e:
                         find = False
